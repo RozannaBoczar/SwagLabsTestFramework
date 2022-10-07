@@ -8,6 +8,7 @@ using System.Net;
 using SwagLabsTestFramework.Pages;
 using SwagLabsTestFramework.Tests;
 using SwagLabsTestFramework.Data;
+using log4net;
 
 namespace SwagLabsTestFramework
 {
@@ -15,6 +16,7 @@ namespace SwagLabsTestFramework
     {
         public static WebDriver Driver;
         public static Product SampleProduct;
+
         public Demo() { }
         public static IWebDriver GetDriver() {
             return Driver;
@@ -24,6 +26,7 @@ namespace SwagLabsTestFramework
         public static void StartBrowser()
         {
             Driver = new ChromeDriver("C:\\Users\\Rozia\\source\\repos\\SwagLabsQAFramework\\SwagLabsQAFramework\\drivers");
+
             SampleProduct = new Product
             {
                 Name = "Sauce Labs Backpack",

@@ -9,7 +9,6 @@ using OpenQA.Selenium.Interactions;
 
 namespace SwagLabsTestFramework.Tests
 {
-    [TestFixture]
     class LogInUserClass : Demo
     {
 
@@ -18,7 +17,9 @@ namespace SwagLabsTestFramework.Tests
         {
             Page MainPage = new Page(Driver, "https://www.saucedemo.com/inventory.html");
             MainPage.Open();
+
             MainPage.LogIn(TestCredentials.USER_NAME_STANDARD, TestCredentials.PASSWORD);
+
             GetDriver().Url.Should().BeEquivalentTo(MainPage.Url);
 
         }
