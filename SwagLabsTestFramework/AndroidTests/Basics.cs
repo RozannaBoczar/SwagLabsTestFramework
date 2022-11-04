@@ -29,21 +29,21 @@ namespace SwagLabsTestFramework.AndroidTests
         }
 
 
-        [Test]
-        public void LogInOut() {
-            Page MainPage = new Page(driver, "https://www.saucedemo.com/inventory.html");
-            MainPage.Open();
-            MainPage.LogIn(TestCredentials.USER_NAME_STANDARD, TestCredentials.PASSWORD);
-            driver.Url.Should().BeEquivalentTo(MainPage.Url);
-            IWebElement Menu = driver.FindElement(By.CssSelector("#react-burger-menu-btn"));
-            Menu.Click();
-            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
-            wait.Until(drv => drv.FindElement(By.CssSelector("#menu_button_container > div > div.bm-menu-wrap")));
-            IWebElement logOutButton = driver.FindElement(By.XPath("/html/body/div/div/div/div[1]/div[1]/div[1]/div/div[2]/div[1]/nav/a[3]"));
-            Actions actions = new Actions(driver);
-            actions.MoveToElement(logOutButton).Click().Build().Perform();
-            driver.Url.Should().NotBeEquivalentTo(MainPage.Url);
-        }
+        //[Test]
+        //public void LogInOut() {
+        //    Page MainPage = new Page(driver, "https://www.saucedemo.com/inventory.html");
+        //    MainPage.Open();
+        //    MainPage.LogIn(TestCredentials.USER_NAME_STANDARD, TestCredentials.PASSWORD);
+        //    driver.Url.Should().BeEquivalentTo(MainPage.Url);
+        //    IWebElement Menu = driver.FindElement(By.CssSelector("#react-burger-menu-btn"));
+        //    Menu.Click();
+        //    var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
+        //    wait.Until(drv => drv.FindElement(By.CssSelector("#menu_button_container > div > div.bm-menu-wrap")));
+        //    IWebElement logOutButton = driver.FindElement(By.XPath("/html/body/div/div/div/div[1]/div[1]/div[1]/div/div[2]/div[1]/nav/a[3]"));
+        //    Actions actions = new Actions(driver);
+        //    actions.MoveToElement(logOutButton).Click().Build().Perform();
+        //    driver.Url.Should().NotBeEquivalentTo(MainPage.Url);
+        //}
 
         [TearDown]
         public static void CloseBrowser()

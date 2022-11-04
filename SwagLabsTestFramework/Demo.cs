@@ -1,31 +1,24 @@
 ﻿using NUnit.Framework;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Net;
-using SwagLabsTestFramework.Pages;
-using SwagLabsTestFramework.Tests;
 using SwagLabsTestFramework.Data;
-using log4net;
+using SwagLabsTestFramework.Pages;
+
 
 namespace SwagLabsTestFramework
 {
     class Demo
     {
-        public static WebDriver Driver;
         public static Product SampleProduct;
 
         public Demo() { }
-        public static IWebDriver GetDriver() {
-            return Driver;
-        }
+        //public static IWebDriver GetDriver() {
+        //    return Driver;
+        //}
 
         [SetUp]
         public static void StartBrowser()
         {
-            Driver = new ChromeDriver("C:\\Users\\Rozia\\source\\repos\\SwagLabsQAFramework\\SwagLabsQAFramework\\drivers");
+            Driver.Init();
+            Pages.Pages.Init();
 
             SampleProduct = new Product
             {
@@ -41,7 +34,7 @@ namespace SwagLabsTestFramework
         [TearDown]
         public static void CloseBrowser()
         {
-            Driver.Close();
+            Driver.Quit();
         }
     }
 }
