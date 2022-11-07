@@ -10,9 +10,6 @@ namespace SwagLabsTestFramework
         public static Product SampleProduct;
 
         public Demo() { }
-        //public static IWebDriver GetDriver() {
-        //    return Driver;
-        //}
 
         [SetUp]
         public static void StartBrowser()

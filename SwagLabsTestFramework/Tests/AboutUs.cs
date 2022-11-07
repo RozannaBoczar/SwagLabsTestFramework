@@ -8,29 +8,23 @@ using SwagLabsTestFramework.Pages;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using SwagLabsTestFramework.PageElements;
 
 namespace SwagLabsTestFramework.Tests
 {
     class AboutUs : Demo
     {
-        //[Test]
-        //public void GoToAboutUs()
-        //{
-        //    Page MainPage = new Page(Driver, "https://www.saucedemo.com/inventory.html");
-        //    MainPage.Open();
-        //    MainPage.LogIn(TestCredentials.USER_NAME_STANDARD, TestCredentials.PASSWORD);
-        //    GetDriver().Url.Should().BeEquivalentTo(MainPage.Url);
-        //    IWebElement Menu = Driver.FindElement(By.CssSelector("#react-burger-menu-btn"));
-        //    Menu.Click();
-        //    var wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
-        //    wait.Until(drv => drv.FindElement(By.CssSelector("#menu_button_container > div > div.bm-menu-wrap")));
-        //    IWebElement aboutUs = Driver.FindElement(By.CssSelector("#about_sidebar_link"));
-        //    Actions actions = new Actions(Driver);
-        //    actions.MoveToElement(aboutUs).Click().Build().Perform();
-        //    Driver.Url.Should().BeEquivalentTo("https://saucelabs.com/");
-        //    Driver.Navigate().Back();
-        //    Driver.Url.Should().BeEquivalentTo(MainPage.Url);
+        [Test]
+        public void GoToAboutUs()
+        {
+            Pages.LoginPage.GoTo();
+            Pages.LoginPage.LogIn(TestCredentials.USER_NAME_STANDARD, TestCredentials.PASSWORD);
+            Pages.HomePage.Menu.OpenMenu();
+            Pages.HomePage.Menu.GoToAboutUs();
+            Driver.Current.Url.Should().BeEquivalentTo(Pages.AboutUs.Url);
+            Driver.Current.Navigate().Back();
+            Driver.Current.Url.Should().BeEquivalentTo(Pages.HomePage.Url);
 
-        //}
+        }
     }
 }

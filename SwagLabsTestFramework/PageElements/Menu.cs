@@ -33,5 +33,13 @@ namespace SwagLabsTestFramework.PageElements
             actions.MoveToElement(logOutButton).Click().Build().Perform();
             Driver.Current.Url.Should().Be(LoginPage.Url);
         }
+
+        public void GoToAboutUs()
+        {
+            Driver.Wait.Until(drv => drv.FindElement(By.CssSelector("#menu_button_container > div > div.bm-menu-wrap")));
+            IWebElement aboutUsButton = Driver.Current.FindElement(By.CssSelector("#about_sidebar_link"));
+            Actions actions = new Actions(Driver.Current);
+            actions.MoveToElement(aboutUsButton).Click().Build().Perform();
+        }
     }
 }
