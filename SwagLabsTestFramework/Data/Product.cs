@@ -10,12 +10,8 @@ namespace SwagLabsTestFramework.Data
         public int Id { get; set; }
 
         public string Description { get; set; }
-        public string Price { get; set; }
+        public decimal Price { get; set; }
 
-        public Product(string name, int id) {
-            Name = Name;
-            Id = Id;
-        }
         public Product() { }
     }
 }

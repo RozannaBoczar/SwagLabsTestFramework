@@ -1,15 +1,10 @@
 ﻿using NUnit.Framework;
-using System;
-using OpenQA.Selenium;
 using FluentAssertions;
 using SwagLabsTestFramework.Data;
-using OpenQA.Selenium.Support.UI;
-using OpenQA.Selenium.Interactions;
-using SwagLabsTestFramework.Pages;
 
 namespace SwagLabsTestFramework.Tests
 {
-    class LogInUserClass : Demo
+    class LogInUser : Demo
     {
 
         [Test]
@@ -52,9 +47,10 @@ namespace SwagLabsTestFramework.Tests
         public void LogInFailurePasswordRequired()
         {
             Pages.LoginPage.GoTo();
-            Pages.LoginPage.LogIn(TestCredentials.USER_NAME_WRONG, "");
+            Pages.LoginPage.LogIn(TestCredentials.USER_NAME_STANDARD, "");
             Driver.Current.Url.Should().NotBe(Pages.HomePage.Url);
-            //TODO
+            Pages.LoginPage.IsErrorMessageDisplayed().Should().BeTrue();
+            Pages.LoginPage.ErrorMessage.Text.Should().Contain("Password is required");
         }
 
         [Test]
@@ -63,28 +59,9 @@ namespace SwagLabsTestFramework.Tests
             Pages.LoginPage.GoTo();
             Pages.LoginPage.LogIn(TestCredentials.USER_NAME_LOCKED, TestCredentials.PASSWORD);
             Driver.Current.Url.Should().NotBe(Pages.HomePage.Url);
-            //TODO
+            Pages.LoginPage.IsErrorMessageDisplayed().Should().BeTrue();
+            Pages.LoginPage.ErrorMessage.Text.Should().Contain("Sorry, this user has been locked out.");
         }
-
-        [Test]
-        public void LogInFailureProblemUser()
-        {
-            Pages.LoginPage.GoTo();
-            Pages.LoginPage.LogIn(TestCredentials.USER_NAME_PROBLEM, TestCredentials.PASSWORD);
-            Driver.Current.Url.Should().NotBe(Pages.HomePage.Url);
-            //TODO
-        }
-
-        [Test]
-        public void LogInFailurePerformanceGlitchUser()
-        {
-            Pages.LoginPage.GoTo();
-            Pages.LoginPage.LogIn(TestCredentials.USER_NAME_PERFORMANCE_GLITCH, TestCredentials.PASSWORD);
-            Driver.Current.Url.Should().NotBe(Pages.HomePage.Url);
-            //TODO
-            //TODO
-        }
-
 
     }
 }

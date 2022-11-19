@@ -10,116 +10,60 @@ using System.Xml.Linq;
 
 namespace SwagLabsTestFramework.Tests
 {
-    class ProductsListClass : Demo
+    class ProductsList : Demo
     {
-        //[Test]
-        //public void ProductDetails()
-        //{
-        //    Page MainPage = new Page(Driver, "https://www.saucedemo.com/inventory.html");
-        //    MainPage.Open();
-        //    MainPage.LogIn(TestCredentials.USER_NAME_STANDARD, TestCredentials.PASSWORD);
+        [Test]
+        public void ProductDetailsMainPage()
+        {
+            Pages.LoginPage.GoTo();
+            Pages.LoginPage.LogIn(TestCredentials.USER_NAME_STANDARD, TestCredentials.PASSWORD);
+            var product = Pages.HomePage.ProductList.GetProductList().First();
+            product.GetProductName().Should().Be(SampleProduct.Name);
+            product.GetProductDescription().Should().Be(SampleProduct.Description);
+            product.GetProductPrice().Should().Be(SampleProduct.Price);
+        }
 
-        //    MainPage.OpenProductDetails(SampleProduct.Id);
-        //    Driver.Url.Should().Contain($"id={SampleProduct.Id}");
+        [Test]
+        public void SortByName()
+        {
+            Pages.LoginPage.GoTo();
+            Pages.LoginPage.LogIn(TestCredentials.USER_NAME_STANDARD, TestCredentials.PASSWORD);
+            Pages.HomePage.ProductList.SortByName();
+            var productList = Pages.HomePage.ProductList.GetProductList();
+            string.Compare(productList[0].GetProductName(), productList[1].GetProductName()).Should().Be(-1);
+        }
 
-        //    var name = Driver.FindElement(By.CssSelector("#inventory_item_container > div > div > div.inventory_details_desc_container > div.inventory_details_name.large_size"));
-        //    name.Text.Should().BeEquivalentTo(SampleProduct.Name);
+        [Test]
+        public void SortByNameDesc()
+        {
+            Pages.LoginPage.GoTo();
+            Pages.LoginPage.LogIn(TestCredentials.USER_NAME_STANDARD, TestCredentials.PASSWORD);
+            Pages.HomePage.ProductList.SortByNameDesc();
+            var productList = Pages.HomePage.ProductList.GetProductList();
+            string.Compare(productList[0].GetProductName(), productList[1].GetProductName()).Should().Be(1);
+        }
 
-        //    var desc = Driver.FindElement(By.CssSelector("#inventory_item_container > div > div > div.inventory_details_desc_container > div.inventory_details_desc.large_size"));
-        //    desc.Text.Should().BeEquivalentTo(SampleProduct.Description);
+        [Test]
+        public void SortByPrice()
+        {
+            Pages.LoginPage.GoTo();
+            Pages.LoginPage.LogIn(TestCredentials.USER_NAME_STANDARD, TestCredentials.PASSWORD);
+            Pages.HomePage.ProductList.SortByPrice();
+            var productList = Pages.HomePage.ProductList.GetProductList();
+            (productList[0].GetProductPrice() < productList[1].GetProductPrice()).Should().BeTrue();
 
-        //    var price = Driver.FindElement(By.CssSelector("#inventory_item_container > div > div > div.inventory_details_desc_container > div.inventory_details_price"));
-        //    price.Text.Should().BeEquivalentTo(SampleProduct.Price);
-        //}
+        }
 
-        //[Test]
-        //public void ProductDetailsMainPage()
-        //{
-        //    Page MainPage = new Page(Driver, "https://www.saucedemo.com/inventory.html");
-        //    MainPage.Open();
-        //    MainPage.LogIn(TestCredentials.USER_NAME_STANDARD, TestCredentials.PASSWORD);
+        [Test]
+        public void SortByPriceDesc()
+        {
+            Pages.LoginPage.GoTo();
+            Pages.LoginPage.LogIn(TestCredentials.USER_NAME_STANDARD, TestCredentials.PASSWORD);
+            Pages.HomePage.ProductList.SortByPriceDesc();
+            var productList = Pages.HomePage.ProductList.GetProductList();
+            (productList[0].GetProductPrice() > productList[1].GetProductPrice()).Should().BeTrue();
 
-        //    var name = Driver.FindElement(By.CssSelector($"#item_{SampleProduct.Id}_title_link > div"));
-        //    name.Text.Should().BeEquivalentTo(SampleProduct.Name);
-
-        //    var desc = Driver.FindElement(By.CssSelector("#inventory_container > div > div:nth-child(1) > div.inventory_item_description > div.inventory_item_label > div"));
-        //    desc.Text.Should().BeEquivalentTo(SampleProduct.Description);
-
-        //    var price = Driver.FindElement(By.CssSelector("#inventory_container > div > div:nth-child(1) > div.inventory_item_description > div.pricebar > div"));
-        //    price.Text.Should().BeEquivalentTo(SampleProduct.Price);
-        //}
-
-        //[Test]
-        //public void SortByName()
-        //{
-        //    Page MainPage = new Page(Driver, "https://www.saucedemo.com/inventory.html");
-        //    MainPage.Open();
-        //    MainPage.LogIn(TestCredentials.USER_NAME_STANDARD, TestCredentials.PASSWORD);
-
-        //    var sort = new SelectElement(Driver.FindElement(By.CssSelector("#header_container > div.header_secondary_container > div.right_component > span > select")));
-        //    sort.SelectByValue("az");
-
-        //    var name1 = Driver.FindElement(By.CssSelector("#item_4_title_link > div")).Text;
-
-        //    var name2 = Driver.FindElement(By.CssSelector("#item_0_title_link > div")).Text;
-
-        //    string.Compare(name1, name2).Should().Be(-1);
-
-
-        //}
-        //[Test]
-        //public void SortByNameDesc()
-        //{
-        //    Page MainPage = new Page(Driver, "https://www.saucedemo.com/inventory.html");
-        //    MainPage.Open();
-        //    MainPage.LogIn(TestCredentials.USER_NAME_STANDARD, TestCredentials.PASSWORD);
-
-        //    var sort = new SelectElement(Driver.FindElement(By.CssSelector("#header_container > div.header_secondary_container > div.right_component > span > select")));
-        //    sort.SelectByValue("za");
-
-        //    var name1 = Driver.FindElement(By.CssSelector("#item_3_title_link > div")).Text;
-
-        //    var name2 = Driver.FindElement(By.CssSelector("#item_2_title_link > div")).Text;
-
-        //    string.Compare(name1, name2).Should().Be(1);
-        //}
-        //[Test]
-        //public void SortByPrice()
-        //{
-        //    Page MainPage = new Page(Driver, "https://www.saucedemo.com/inventory.html");
-        //    MainPage.Open();
-        //    MainPage.LogIn(TestCredentials.USER_NAME_STANDARD, TestCredentials.PASSWORD);
-
-        //    var sort = new SelectElement(Driver.FindElement(By.CssSelector("#header_container > div.header_secondary_container > div.right_component > span > select")));
-        //    sort.SelectByValue("lohi");
-
-        //    var price1 = Driver.FindElement(By.CssSelector("#inventory_container > div > div:nth-child(1) > div.inventory_item_description > div.pricebar > div")).Text;
-        //    decimal price1Dec = decimal.Parse(price1.Substring(1).Replace(".", ""))/100;
-
-        //    var price2 = Driver.FindElement(By.CssSelector("#inventory_container > div > div:nth-child(2) > div.inventory_item_description > div.pricebar > div")).Text;
-        //    var price2Dec = Decimal.Parse(price2.Substring(1).Replace(".", ""))/100;
-
-        //    (price1Dec < price2Dec).Should().BeTrue();
-        //}
-
-        //[Test]
-        //public void SortByPriceDesc()
-        //{
-        //    Page MainPage = new Page(Driver, "https://www.saucedemo.com/inventory.html");
-        //    MainPage.Open();
-        //    MainPage.LogIn(TestCredentials.USER_NAME_STANDARD, TestCredentials.PASSWORD);
-
-        //    var sort = new SelectElement(Driver.FindElement(By.CssSelector("#header_container > div.header_secondary_container > div.right_component > span > select")));
-        //    sort.SelectByValue("hilo");
-
-        //    var price1 = Driver.FindElement(By.CssSelector("#inventory_container > div > div:nth-child(1) > div.inventory_item_description > div.pricebar > div")).Text;
-        //    var price1Dec = Decimal.Parse(price1.Substring(1).Replace(".", ""))/100;
-
-        //    var price2 = Driver.FindElement(By.CssSelector("#inventory_container > div > div:nth-child(2) > div.inventory_item_description > div.pricebar > div")).Text;
-        //    var price2Dec = Decimal.Parse(price2.Substring(1).Replace(".", ""))/100;
-
-        //    (price1Dec > price2Dec).Should().BeTrue();
-        //}
+        }
 
         //[Test]
         //public void AddRemoveToCart()

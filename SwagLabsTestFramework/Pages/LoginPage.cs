@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using SwagLabsTestFramework.PageElements;
 using System;
 using FluentAssertions;
+using OpenQA.Selenium.Support.UI;
 
 namespace SwagLabsTestFramework.Pages
 {
@@ -33,5 +34,6 @@ namespace SwagLabsTestFramework.Pages
         {
             return ErrorMessage.Displayed;
         }
+
     }
 }

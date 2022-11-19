@@ -1,14 +1,6 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
-using OpenQA.Selenium.Interactions;
-using OpenQA.Selenium.Support.UI;
-using OpenQA.Selenium;
 using SwagLabsTestFramework.Data;
-using SwagLabsTestFramework.Pages;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using SwagLabsTestFramework.PageElements;
 
 namespace SwagLabsTestFramework.Tests
 {

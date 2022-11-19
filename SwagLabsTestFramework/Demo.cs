@@ -22,7 +22,7 @@ namespace SwagLabsTestFramework
                 Name = "Sauce Labs Backpack",
                 Id = 4,
                 Description = "carry.allTheThings() with the sleek, streamlined Sly Pack that melds uncompromising style with unequaled laptop and tablet protection.",
-                Price = "$29.99"
+                Price = 29.99m
             };
 
         }

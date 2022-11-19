@@ -12,11 +12,16 @@ namespace SwagLabsTestFramework.Pages
     {
         [ThreadStatic]
         public static Menu Menu;
+
+        [ThreadStatic]
+        public static ProductList ProductList;
+
         public static readonly string Url = "https://www.saucedemo.com/inventory.html";
 
         public HomePage()
         {
             Menu = new Menu();
+            ProductList = new ProductList();
         }
 
         public static void GoTo() {
