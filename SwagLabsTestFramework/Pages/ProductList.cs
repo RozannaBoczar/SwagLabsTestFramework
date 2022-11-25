@@ -22,7 +22,7 @@ namespace SwagLabsTestFramework.Pages
 
         public List<ProductListDetails> GetProductList() {
             var list = FindElements(By.ClassName("inventory_item"));
-            foreach(Element product in list){
+            foreach(var product in list){
                 var name = product.FindElement(By.ClassName("inventory_item_name")).Text;
                 var desc = product.FindElement(By.ClassName("inventory_item_desc")).Text;
                 var price = product.FindElement(By.ClassName("inventory_item_price")).Text;
