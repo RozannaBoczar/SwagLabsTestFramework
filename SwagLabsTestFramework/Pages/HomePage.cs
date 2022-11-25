@@ -14,6 +14,9 @@ namespace SwagLabsTestFramework.Pages
         public static Menu Menu;
 
         [ThreadStatic]
+        public static ShoppingCart ShoppingCart;
+
+        [ThreadStatic]
         public static ProductList ProductList;
 
         public static readonly string Url = "https://www.saucedemo.com/inventory.html";
@@ -22,6 +25,7 @@ namespace SwagLabsTestFramework.Pages
         {
             Menu = new Menu();
             ProductList = new ProductList();
+            ShoppingCart = new ShoppingCart();
         }
 
         public static void GoTo() {

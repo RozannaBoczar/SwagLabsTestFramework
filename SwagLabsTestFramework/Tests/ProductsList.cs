@@ -1,12 +1,7 @@
 ﻿using NUnit.Framework;
 using SwagLabsTestFramework.Data;
-using SwagLabsTestFramework.Pages;
 using FluentAssertions;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-using System;
 using System.Linq;
-using System.Xml.Linq;
 
 namespace SwagLabsTestFramework.Tests
 {
@@ -65,41 +60,17 @@ namespace SwagLabsTestFramework.Tests
 
         }
 
-        //[Test]
-        //public void AddRemoveToCart()
-        //{
-        //    Page MainPage = new Page(Driver, "https://www.saucedemo.com/inventory.html");
-        //    MainPage.Open();
-        //    MainPage.LogIn(TestCredentials.USER_NAME_STANDARD, TestCredentials.PASSWORD);
-
-        //    var shoppingCart = Driver.FindElement(By.CssSelector("#shopping_cart_container > a"));
-        //    var shoppingCartList = shoppingCart.FindElements(By.CssSelector("*")).FirstOrDefault();
-        //    shoppingCartList.Should().BeNull();
-
-        //    var addToCartButton = Driver.FindElement(By.CssSelector("#add-to-cart-sauce-labs-backpack"));
-        //    addToCartButton.Text.Should().BeEquivalentTo("Add to cart");
-        //    addToCartButton.Click();
-
-        //    shoppingCartList = shoppingCart.FindElement(By.CssSelector("*"));
-        //    shoppingCartList.Should().NotBeNull();
-        //    shoppingCartList.Text.Should().BeEquivalentTo("1");
-
-        //    addToCartButton = Driver.FindElement(By.CssSelector("#add-to-cart-sauce-labs-bike-light"));
-        //    addToCartButton.Text.Should().BeEquivalentTo("Add to cart");
-        //    addToCartButton.Click();
-
-        //    shoppingCartList = shoppingCart.FindElement(By.CssSelector("*"));
-        //    shoppingCartList.Should().NotBeNull();
-        //    shoppingCartList.Text.Should().BeEquivalentTo("2");
-
-        //    addToCartButton = Driver.FindElement(By.CssSelector("#remove-sauce-labs-bike-light"));
-        //    addToCartButton.Text.Should().BeEquivalentTo("Remove");
-        //    addToCartButton.Click();
-
-        //    shoppingCartList = shoppingCart.FindElement(By.CssSelector("*"));
-        //    shoppingCartList.Should().NotBeNull();
-        //    shoppingCartList.Text.Should().BeEquivalentTo("1");
-        //}
+        [Test]
+        public void AddRemoveToCart() {
+            Pages.LoginPage.GoTo();
+            Pages.LoginPage.LogIn(TestCredentials.USER_NAME_STANDARD, TestCredentials.PASSWORD);
+            Pages.HomePage.ProductList.AddToCart(SampleProduct.Name);
+            Pages.HomePage.ShoppingCart.GetItemsCount().Should().Be(1);
+            Pages.HomePage.ProductList.AddToCart(SampleProduct2.Name);
+            Pages.HomePage.ShoppingCart.GetItemsCount().Should().Be(2);
+            Pages.HomePage.ProductList.RemoveFromCart(SampleProduct.Name);
+            Pages.HomePage.ShoppingCart.GetItemsCount().Should().Be(1);
+        }
 
         //[Test]
         //public void CheckShoppingList()

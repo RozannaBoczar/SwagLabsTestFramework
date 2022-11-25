@@ -55,5 +55,19 @@ namespace SwagLabsTestFramework.Pages
             var sort = new SelectElement(Driver.FindElement(By.CssSelector("#header_container > div.header_secondary_container > div.right_component > span > select")));
             sort.SelectByValue("hilo");
         }
+
+        internal void AddToCart(string name)
+        {
+            var testName = name.ToLower().Replace(" ", "-");
+            var addToCartButton = FindElement(By.XPath($"//*[@id=\"add-to-cart-{testName}\"]"));
+            addToCartButton.Click();
+        }
+
+        internal void RemoveFromCart(string name)
+        {
+            var testName = name.ToLower().Replace(" ", "-");
+            var addToCartButton = FindElement(By.XPath($"//*[@id=\"remove-{testName}\"]"));
+            addToCartButton.Click();
+        }
     }
 }
