@@ -37,5 +37,14 @@ namespace SwagLabsTestFramework.Pages
             Menu.OpenMenu();
             Menu.LogOut();
         }
+
+        public static void ShoppingCartOpen() {
+            ShoppingCart.Open();
+        }
+
+        internal static object GetTitle()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
