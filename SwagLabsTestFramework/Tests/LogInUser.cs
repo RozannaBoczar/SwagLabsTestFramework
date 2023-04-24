@@ -10,25 +10,45 @@ namespace SwagLabsTestFramework.Tests
         [Test]
         public void LogInSuccessful()
         {
+            Logs.LogTestStep("Open Login Page");
             Pages.LoginPage.GoTo();
+
+            Logs.LogTestStep("Log in to the system");
             Pages.LoginPage.LogIn(TestCredentials.USER_NAME_STANDARD, TestCredentials.PASSWORD);
-            Driver.Current.Url.Should().Be(Pages.HomePage.Url);
+
+            Logs.LogTestStep("Verify the link");
+            Driver.Current.Url.Should().NotBe(Pages.HomePage.Url);
         }
 
         [Test]
         public void LogOut()
         {
+            Logs.LogTestStep("Open Login Page");
             Pages.LoginPage.GoTo();
+
+            Logs.LogTestStep("Log in to the system");
             Pages.LoginPage.LogIn(TestCredentials.USER_NAME_STANDARD, TestCredentials.PASSWORD);
+
+            Logs.LogTestStep("Log out");
             Pages.HomePage.LogOut();
+
+            Logs.LogTestStep("Verify the link");
+            Driver.Current.Url.Should().Be(Pages.HomePage.Url);
         }
 
         [Test]
         public void LogInFailureWrongLoginAndPassword()
         {
+            Logs.LogTestStep("Open Login Page");
             Pages.LoginPage.GoTo();
+
+            Logs.LogTestStep("Log in to the system using invalid credentials");
             Pages.LoginPage.LogIn(TestCredentials.USER_NAME_WRONG, TestCredentials.PASSWORD);
-            Driver.Current.Url.Should().NotBe(Pages.HomePage.Url);
+
+            Logs.LogTestStep("Verify the link");
+            Driver.Current.Url.Should().Be(Pages.HomePage.Url);
+
+            Logs.LogTestStep("Verify that error appears");
             Pages.LoginPage.IsErrorMessageDisplayed().Should().BeTrue();
             Pages.LoginPage.ErrorMessage.Text.Should().Contain("Username and password do not match any user in this service");
         }
@@ -36,9 +56,16 @@ namespace SwagLabsTestFramework.Tests
         [Test]
         public void LogInFailureLoginRequired()
         {
+            Logs.LogTestStep("Open Login Page");
             Pages.LoginPage.GoTo();
+
+            Logs.LogTestStep("Log in to the system using empty data");
             Pages.LoginPage.LogIn("","");
-            Driver.Current.Url.Should().NotBe(Pages.HomePage.Url);
+
+            Logs.LogTestStep("Verify the link");
+            Driver.Current.Url.Should().Be(Pages.HomePage.Url);
+
+            Logs.LogTestStep("Verify that error appears");
             Pages.LoginPage.IsErrorMessageDisplayed().Should().BeTrue();
             Pages.LoginPage.ErrorMessage.Text.Should().Contain("Username is required");
         }
@@ -46,9 +73,16 @@ namespace SwagLabsTestFramework.Tests
         [Test]
         public void LogInFailurePasswordRequired()
         {
+            Logs.LogTestStep("Open Login Page");
             Pages.LoginPage.GoTo();
+
+            Logs.LogTestStep("Log in to the system using data without password");
             Pages.LoginPage.LogIn(TestCredentials.USER_NAME_STANDARD, "");
-            Driver.Current.Url.Should().NotBe(Pages.HomePage.Url);
+
+            Logs.LogTestStep("Verify the link");
+            Driver.Current.Url.Should().Be(Pages.HomePage.Url);
+
+            Logs.LogTestStep("Verify that error appears");
             Pages.LoginPage.IsErrorMessageDisplayed().Should().BeTrue();
             Pages.LoginPage.ErrorMessage.Text.Should().Contain("Password is required");
         }
@@ -56,9 +90,16 @@ namespace SwagLabsTestFramework.Tests
         [Test]
         public void LogInFailureLockedUser()
         {
+            Logs.LogTestStep("Open Login Page");
             Pages.LoginPage.GoTo();
+
+            Logs.LogTestStep("Log in to the system using locked user data");
             Pages.LoginPage.LogIn(TestCredentials.USER_NAME_LOCKED, TestCredentials.PASSWORD);
-            Driver.Current.Url.Should().NotBe(Pages.HomePage.Url);
+
+            Logs.LogTestStep("Verify the link");
+            Driver.Current.Url.Should().Be(Pages.HomePage.Url);
+
+            Logs.LogTestStep("Verify that error appears");
             Pages.LoginPage.IsErrorMessageDisplayed().Should().BeTrue();
             Pages.LoginPage.ErrorMessage.Text.Should().Contain("Sorry, this user has been locked out.");
         }

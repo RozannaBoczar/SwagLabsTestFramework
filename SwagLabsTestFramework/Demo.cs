@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using SwagLabsTestFramework.Data;
 using SwagLabsTestFramework.Pages;
 
@@ -9,6 +10,7 @@ namespace SwagLabsTestFramework
     {
         public static Product SampleProduct;
         public static Product SampleProduct2;
+        public Logging Logs = new Logging();
 
         public Demo() { }
 

@@ -1,21 +1,13 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Interactions;
-using FluentAssertions;
-using OpenQA.Selenium.Support.UI;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Drawing;
-using System.Text;
-using SwagLabsTestFramework.Pages;
-using OpenQA.Selenium.DevTools.V104.Browser;
 
 namespace SwagLabsTestFramework.PageElements
 {
     public class Menu
     {
         public Element MenuButton => Driver.FindElement(By.CssSelector("#react-burger-menu-btn"), "Menu Button");
-
+        public string aboutUsId = "#about_sidebar_link";
+        public string logOutId = "#logout_sidebar_link";
+        public string resetId = "reset_sidebar_link";
 
         public Menu()
         {
@@ -24,22 +16,24 @@ namespace SwagLabsTestFramework.PageElements
         public void OpenMenu()
         {
             MenuButton.Click();
+            MenuButton.Hover();
         }
 
         public void LogOut() {
-            Driver.Wait.Until(drv => drv.FindElement(By.CssSelector("#menu_button_container > div > div.bm-menu-wrap")));
-            IWebElement logOutButton = Driver.Current.FindElement(By.XPath("/html/body/div/div/div/div[1]/div[1]/div[1]/div/div[2]/div[1]/nav/a[3]"));
-            Actions actions = new Actions(Driver.Current);
-            actions.MoveToElement(logOutButton).Click().Build().Perform();
-            Driver.Current.Url.Should().Be(LoginPage.Url);
+            IWebElement logOutButton = Driver.Current.FindElement(By.CssSelector(logOutId));
+            logOutButton.Click();
         }
 
         public void GoToAboutUs()
         {
-            Driver.Wait.Until(drv => drv.FindElement(By.CssSelector("#menu_button_container > div > div.bm-menu-wrap")));
-            IWebElement aboutUsButton = Driver.Current.FindElement(By.CssSelector("#about_sidebar_link"));
-            Actions actions = new Actions(Driver.Current);
-            actions.MoveToElement(aboutUsButton).Click().Build().Perform();
+            IWebElement aboutUsButton = Driver.Current.FindElement(By.CssSelector(aboutUsId));
+            aboutUsButton.Click();
+        }
+
+        public void ResetAppState()
+        {
+            IWebElement aboutUsButton = Driver.Current.FindElement(By.CssSelector(resetId));
+            aboutUsButton.Click();
         }
     }
 }

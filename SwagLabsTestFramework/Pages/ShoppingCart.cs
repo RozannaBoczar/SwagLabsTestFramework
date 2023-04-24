@@ -1,13 +1,7 @@
 ﻿using OpenQA.Selenium;
-using System.Security.Policy;
-using SwagLabsTestFramework;
-using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
-using SwagLabsTestFramework.PageElements;
 using System;
 using System.Collections.Generic;
-using System.Net;
-using OpenQA.Selenium.Support.UI;
+using SwagLabsTestFramework.Data;
 
 namespace SwagLabsTestFramework.Pages
 {
@@ -23,6 +17,8 @@ namespace SwagLabsTestFramework.Pages
         public Element FinishButton => Driver.FindElement(By.CssSelector("#finish"), "Finish Button");
         public Element BackHomeButton => Driver.FindElement(By.CssSelector("#back-to-products"), "Back Home Button");
         public Element CancelButton => Driver.FindElement(By.CssSelector("#cancel"), "Cancel Button");
+
+        public string containerId = "inventory_container";
 
 
         public ShoppingCart()
@@ -83,14 +79,26 @@ namespace SwagLabsTestFramework.Pages
             BackHomeButton.Click();
         }
 
-        public object GetShoppingList()
+        public List<Product> GetShoppingList()
         {
-            throw new NotImplementedException();
+            var products = new List<Product>();
+            var container = Driver.FindElement(By.Id("inventory_container"));
+            foreach (Element product in container.FindElements(By.ClassName("inventory_item"))){
+                products.Add(new Product
+                {
+                    Name = product.FindElement(By.XPath("//contains[@id='_title_link']/div")).Text,
+                    Description = product.FindElement(By.XPath("//*[@class='inventory_item_desc]'")).Text,
+                    Price = Convert.ToDecimal(product.FindElement(By.XPath("//*[@class='inventory_item_price']")).Text[1])
+                }); ;
+            }
+            return products;
         }
 
         public void FillCustomerInformation(string v1, string v2, string v3)
         {
-            throw new NotImplementedException();
+            Driver.FindElement(By.Id("first-name")).SendKeys(v1);
+            Driver.FindElement(By.Id("last-name")).SendKeys(v1);
+            Driver.FindElement(By.Id("postal-code")).SendKeys(v1);
         }
 
         public object GetSummary()

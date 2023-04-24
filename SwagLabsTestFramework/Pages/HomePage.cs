@@ -19,7 +19,7 @@ namespace SwagLabsTestFramework.Pages
         [ThreadStatic]
         public static ProductList ProductList;
 
-        public static readonly string Url = "https://www.saucedemo.com/inventory.html";
+        public static readonly string Url = "https://www.saucedemo.com/";
 
         public HomePage()
         {
