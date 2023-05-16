@@ -101,7 +101,21 @@ namespace SwagLabsTestFramework.Pages
             Driver.FindElement(By.Id("postal-code")).SendKeys(v1);
         }
 
-        public object GetSummary()
+        public Summary GetSummary()
+        {
+            Summary sum = new Summary
+            {
+                Total = Convert.ToInt32(Driver.FindElement(By.XPath("*[@class='summary_info_label summary_total_label']/text()[2]")).Text),
+                ItemTotal = Convert.ToInt32(Driver.FindElement(By.XPath("*[@class='summary_info_label summary_total_label']/text()[2]")).Text),
+                Tax = Convert.ToInt32(Driver.FindElement(By.XPath("*[@class='summary_info_label summary_total_label']/text()[2]")).Text),
+                ShipInformation = Driver.FindElement(By.XPath("*[@class='summary_value_label']/text()")).Text,
+                PayInformation = Driver.FindElement(By.XPath("*[@class='summary_value_label']/text()")).Text,
+                Products = GetProductsFromSummary()
+            };
+            return sum;
+        }
+
+        private List<Product> GetProductsFromSummary()
         {
             throw new NotImplementedException();
         }
