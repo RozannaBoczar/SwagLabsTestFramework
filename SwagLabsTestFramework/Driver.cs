@@ -12,6 +12,8 @@ using log4net;
 using OpenQA.Selenium.Support.UI;
 using System.IO;
 using System.Xml.Linq;
+using WebDriverManager.DriverConfigs.Impl;
+using WebDriverManager;
 
 namespace SwagLabsTestFramework
 {
@@ -28,7 +30,10 @@ namespace SwagLabsTestFramework
 
         public static void Init()
         {
-            _driver = new ChromeDriver("C:\\Users\\Rozia\\source\\repos\\SwagLabsTestFramework\\SwagLabsTestFramework\\drivers\\");
+            new DriverManager().SetUpDriver(new ChromeConfig());
+            var options = new ChromeOptions();
+            options.AddArgument("--start-maximized");
+            _driver = new ChromeDriver(options);
             Wait = new Wait(5);
             Window = new Window();
             Window.Maximize();

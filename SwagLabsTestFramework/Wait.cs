@@ -31,5 +31,25 @@ namespace SwagLabsTestFramework
         {
             return _wait.Until(condition);
         }
+
+        public static void WaitUntilPageIsLoaded(IWebDriver driver, int timeoutInSeconds = 10)
+        {
+            WebDriverWait wait = new WebDriverWait(new SystemClock(), driver, TimeSpan.FromSeconds(timeoutInSeconds), TimeSpan.FromMilliseconds(500));
+            wait.Until(d =>
+            {
+                try
+                {
+                    return ((IJavaScriptExecutor)d).ExecuteScript("return document.readyState").ToString() == "complete";
+                }
+                catch (InvalidOperationException)
+                {
+                    return false;
+                }
+                catch (WebDriverException)
+                {
+                    return false;
+                }
+            });
+        }
     }
 }

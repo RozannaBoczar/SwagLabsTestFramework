@@ -10,8 +10,7 @@ namespace SwagLabsTestFramework
     {
         public static Product SampleProduct;
         public static Product SampleProduct2;
-        public Logging Logs = new Logging();
-
+        public static Logging Logs = new Logging();
         public Demo() { }
 
         [SetUp]
@@ -19,7 +18,7 @@ namespace SwagLabsTestFramework
         {
             Driver.Init();
             Pages.Pages.Init();
-
+            Logs.Clear();
             SampleProduct = new Product
             {
                 Name = "Sauce Labs Backpack",
@@ -38,11 +37,11 @@ namespace SwagLabsTestFramework
 
         }
 
-
         [TearDown]
         public static void CloseBrowser()
         {
             Driver.Quit();
         }
+
     }
 }

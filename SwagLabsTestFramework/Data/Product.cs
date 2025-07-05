@@ -13,5 +13,12 @@ namespace SwagLabsTestFramework.Data
         public decimal Price { get; set; }
 
         public Product() { }
+
+        public Product(string name, string description, decimal price)
+        {
+            Name = name;
+            Description = description;
+            Price = price;
+        }
     }
 }

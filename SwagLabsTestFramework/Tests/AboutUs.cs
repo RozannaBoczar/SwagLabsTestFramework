@@ -1,6 +1,5 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
-using OpenQA.Selenium;
 using SwagLabsTestFramework.Data;
 
 namespace SwagLabsTestFramework.Tests
@@ -23,6 +22,7 @@ namespace SwagLabsTestFramework.Tests
             Pages.HomePage.Menu.GoToAboutUs();
 
             Logs.LogTestStep("Verify the link");
+            Wait.WaitUntilPageIsLoaded(Driver.Current);
             Driver.Current.Url.Should().BeEquivalentTo(Pages.AboutUs.Url);
 
             Logs.LogTestStep("Go to previous page");
